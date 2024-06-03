@@ -97,16 +97,17 @@ public class AdminMockFilter implements ClusterFilter {
             if (Objects.nonNull(mockService)) {
                 return mockService;
             }
-            // init the config, the registry is from user's config.
+            // init the config, the registry is from user's config. 就是看看注册中心中有没有
             ReferenceConfig<MockService> mockServiceConfig = new ReferenceConfig<>();
             mockServiceConfig.setCheck(false);
+//            这里设置了要查找的 interface 是哪个，所以值会找实现了这个东西的 provider的url
             mockServiceConfig.setInterface(MockService.class);
             mockServiceConfig.setRegistries(DubboBootstrap.getInstance().getConfigManager().getDefaultRegistries());
             List<URL> urls = ConfigValidationUtils.loadRegistries(mockServiceConfig, false);
             if (CollectionUtils.isEmpty(urls)) {
                 return null;
             }
-            // build the URL parameters
+            // build the URL parameters 这个url是从registries中拿出来的
             URL url = urls.get(0);
             Map<String, String> map = new HashMap<>();
             ReferenceConfigBase.appendRuntimeParameters(map);
@@ -116,7 +117,7 @@ public class AdminMockFilter implements ClusterFilter {
             AbstractConfig.appendParameters(map, mockServiceConfig.getModule());
             AbstractConfig.appendParameters(map, mockServiceConfig);
             url = url.putAttribute(REFER_KEY, map);
-            // create the proxy MockService
+            // create the proxy MockService  url是provider的url，这里重新生成了个代理对象
             Invoker<MockService> invoker = protocol.refer(MockService.class, url);
             mockService = proxyFactory.getProxy(invoker);
             ScopeModelUtil.getApplicationModel(mockServiceConfig.getScopeModel()).getBeanFactory().getBean(ShutdownHookCallbacks.class)

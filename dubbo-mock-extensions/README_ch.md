@@ -19,3 +19,6 @@
 - 开启模拟返回开关 将``` -Denable.dubbo.admin.mock=true ```添加到JVM启动参数中。
 
 - 配置模拟规则 在[dubbo-admin](https://github.com/apache/dubbo-admin)的服务Mock菜单栏进行模拟规则的配置。
+
+
+应该是 admin 那边会注册 mock相关的interface到注册中心，然后这边这个filter如果生效的话，会根据consumer的url中的registry找mock interface的地址，然后进行代理，将请求往那边发
