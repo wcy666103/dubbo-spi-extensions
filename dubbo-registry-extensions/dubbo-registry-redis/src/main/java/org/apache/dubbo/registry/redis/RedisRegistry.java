@@ -80,6 +80,7 @@ public class RedisRegistry extends FailbackRegistry {
     private static final String CLUSTER_REDIS = "cluster";
     private static final String DEFAULT_ROOT = "dubbo";
 
+//    实现定时程序（每隔一段时间执行一次）时比较方便。
     private final ScheduledExecutorService expireExecutor = Executors.newScheduledThreadPool(1, new NamedThreadFactory("DubboRegistryExpireTimer", true));
 
     private final ScheduledFuture<?> expireFuture;

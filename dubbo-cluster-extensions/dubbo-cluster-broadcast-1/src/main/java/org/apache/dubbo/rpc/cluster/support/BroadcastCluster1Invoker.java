@@ -61,6 +61,7 @@ public class BroadcastCluster1Invoker<T> extends AbstractClusterInvoker<T> {
     @SuppressWarnings({"unchecked", "rawtypes"})
     public Result doInvoke(final Invocation invocation, List<Invoker<T>> invokers, LoadBalance loadbalance) throws RpcException {
         checkInvokers(invokers, invocation);
+//        这个地方的实现跟 dubbo 那边的实现很不一样
         RpcContext.getContext().setInvokers((List) invokers);
         InvokeResult res = invoke(invokers, invocation);
         if (hasException(res.exception)) {
@@ -160,8 +161,10 @@ public class BroadcastCluster1Invoker<T> extends AbstractClusterInvoker<T> {
         return new AppResponse(invocation) {
             @Override
             public Result whenCompleteWithContext(BiConsumer<Result, Throwable> fn) {
+//                广播结果
                 RpcContext.getServerContext().setAttachment(BROADCAST_RESULTS_KEY, JsonUtils.toJson(resultList));
                 AppResponse res = new AppResponse();
+//                这个value 是前边拿到的结果之后随便选的一个
                 res.setValue(value);
                 return res;
             }
