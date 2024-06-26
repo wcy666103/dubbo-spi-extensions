@@ -126,6 +126,7 @@ class KubernetesServiceDiscoveryTest {
                 .endSubset()
                 .build();
 
+//        根据创建出来的对象，进行 client构建
         mockClient.pods().resource(pod).create();
         mockClient.services().resource(service).create();
         mockClient.endpoints().resource(endPoints).create();
@@ -149,6 +150,7 @@ class KubernetesServiceDiscoveryTest {
                 12345,
                 ScopeModelUtil.getApplicationModel(serviceDiscovery.getUrl().getScopeModel()));
 
+//        向注册中心注入 instance
         serviceDiscovery.doRegister(serviceInstance);
 
         HashSet<String> serviceList = new HashSet<>(4);

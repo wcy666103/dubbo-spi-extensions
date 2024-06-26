@@ -127,6 +127,7 @@ public class KubernetesServiceDiscovery extends AbstractServiceDiscovery {
         kubernetesClient.close();
     }
 
+//    向注册中心注册  感觉 kubernetesClient 只是一个中间人，他自己会向 master通信，来对应进行修改，通知注册等
     @Override
     public void doRegister(ServiceInstance serviceInstance) throws RuntimeException {
         if (enableRegister) {
