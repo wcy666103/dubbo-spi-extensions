@@ -55,6 +55,11 @@ import static org.apache.dubbo.registry.kubernetes.util.KubernetesClientConst.WA
 
 public class KubernetesConfigUtils {
 
+    /**
+     * 配置的是k8s client的config
+     * @param url
+     * @return
+     */
     public static Config createKubernetesConfig(URL url) {
         // Init default config
         Config base = Config.autoConfigure(null);

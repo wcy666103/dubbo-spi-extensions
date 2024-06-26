@@ -25,6 +25,11 @@ import org.apache.dubbo.registry.support.FailbackRegistry;
  * Kubernetes only support `Service Discovery` mode register <br/>
  * Used to compat past version like 2.6.x, 2.7.x with interface level register <br/>
  * {@link KubernetesServiceDiscovery} is the real implementation of Kubernetes
+ *
+ * Kubernetes 的空实现 Kubernetes
+ * 仅支持“服务发现”模式寄存器 用于将过去的版本（如 2.6.x、2.7.x）与接口级寄存器兼容
+ *
+ * KubernetesServiceDiscovery 是 Kubernetes 的真正实现
  */
 public class KubernetesRegistry extends FailbackRegistry {
     public KubernetesRegistry(URL url) {

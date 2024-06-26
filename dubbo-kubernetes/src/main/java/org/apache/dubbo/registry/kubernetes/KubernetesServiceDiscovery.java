@@ -57,6 +57,9 @@ import static org.apache.dubbo.common.constants.LoggerCodeConstants.REGISTRY_UNA
 import static org.apache.dubbo.common.constants.LoggerCodeConstants.REGISTRY_UNABLE_FIND_SERVICE_KUBERNETES;
 import static org.apache.dubbo.common.constants.LoggerCodeConstants.REGISTRY_UNABLE_MATCH_KUBERNETES;
 
+/**
+ * 使用 k8s 作为服务发现的类 org.apache.dubbo.registry.client
+ */
 public class KubernetesServiceDiscovery extends AbstractServiceDiscovery {
     private final ErrorTypeAwareLogger logger = LoggerFactory.getErrorTypeAwareLogger(getClass());
 
@@ -85,6 +88,7 @@ public class KubernetesServiceDiscovery extends AbstractServiceDiscovery {
 
     public KubernetesServiceDiscovery(ApplicationModel applicationModel, URL registryURL) {
         super(applicationModel, registryURL);
+//        通过 registryURL来创建 k8s 的 config
         Config config = KubernetesConfigUtils.createKubernetesConfig(registryURL);
         this.kubernetesClient = new KubernetesClientBuilder().withConfig(config).build();
         this.currentHostname = System.getenv("HOSTNAME");

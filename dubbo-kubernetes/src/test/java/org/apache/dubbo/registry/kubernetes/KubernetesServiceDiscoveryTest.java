@@ -73,11 +73,13 @@ class KubernetesServiceDiscoveryTest {
     @BeforeEach
     public void setUp() {
         mockServer.before();
+//        client是绑定到具体的 namespace上的
         mockClient = mockServer.getClient().inNamespace("dubbo-demo");
 
         ApplicationModel applicationModel = ApplicationModel.defaultModel();
         applicationModel.getApplicationConfigManager().setApplication(new ApplicationConfig());
 
+//        构建dubbo的url
         serverUrl = URL.valueOf(mockClient.getConfiguration().getMasterUrl())
                 .setProtocol("kubernetes")
                 .addParameter(NAMESPACE, "dubbo-demo")

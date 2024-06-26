@@ -39,6 +39,7 @@ public class KubernetesMeshEnvListener implements MeshEnvListener {
     public static final ErrorTypeAwareLogger logger =
             LoggerFactory.getErrorTypeAwareLogger(KubernetesMeshEnvListener.class);
     private static volatile boolean usingApiServer = false;
+//    注入的 client，并且是static，所以只是有一个
     private static volatile KubernetesClient kubernetesClient;
     private static volatile String namespace;
 
@@ -81,6 +82,7 @@ public class KubernetesMeshEnvListener implements MeshEnvListener {
             return;
         }
 
+//        放入 vsappWatch
         try {
             Watch watch = kubernetesClient
                     .genericKubernetesResources(MeshConstant.getVsDefinition())
@@ -93,7 +95,7 @@ public class KubernetesMeshEnvListener implements MeshEnvListener {
                                 logger.info("Received VS Rule notification. AppName: " + appName + " Action:" + action
                                         + " Resource:" + resource);
                             }
-
+//                          如果新增或者修改就需要覆盖原来的cache了
                             if (action == Action.ADDED || action == Action.MODIFIED) {
                                 String vsRule = new Yaml(new SafeConstructor(new LoaderOptions())).dump(resource);
                                 vsAppCache.put(appName, vsRule);
@@ -101,6 +103,7 @@ public class KubernetesMeshEnvListener implements MeshEnvListener {
                                     notifyListener(vsRule, appName, drAppCache.get(appName));
                                 }
                             } else {
+//                                这边跟 mesh router还有关系；这还要调用这个方法应该是这个东西需要对 vsAppWatch进行一些处理的吧
                                 appRuleListenerMap.get(appName).receiveConfigInfo("");
                             }
                         }
@@ -111,6 +114,8 @@ public class KubernetesMeshEnvListener implements MeshEnvListener {
                         }
                     });
             vsAppWatch.put(appName, watch);
+
+//            放入 vsappcache  这个拿到的跟 上边那个链条拿到的是一个对象么
             try {
                 GenericKubernetesResource vsRule = kubernetesClient
                         .genericKubernetesResources(MeshConstant.getVsDefinition())
@@ -130,6 +135,7 @@ public class KubernetesMeshEnvListener implements MeshEnvListener {
         String rule = vsRule + "\n---\n" + drRule;
         logger.info("Notify App Rule Listener. AppName: " + appName + " Rule:" + rule);
 
+//        激活路由
         appRuleListenerMap.get(appName).receiveConfigInfo(rule);
     }
 

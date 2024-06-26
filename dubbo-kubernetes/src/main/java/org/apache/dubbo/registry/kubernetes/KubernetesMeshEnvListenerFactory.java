@@ -28,6 +28,10 @@ public class KubernetesMeshEnvListenerFactory implements MeshEnvListenerFactory 
     private final AtomicBoolean initialized = new AtomicBoolean(false);
     private MeshEnvListener listener = null;
 
+    /**
+     * Listener也是个空实现
+     * @return
+     */
     @Override
     public MeshEnvListener getListener() {
         try {

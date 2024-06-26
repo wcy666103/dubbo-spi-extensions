@@ -19,6 +19,9 @@ package org.apache.dubbo.registry.kubernetes;
 import org.apache.dubbo.rpc.cluster.router.mesh.route.MeshAppRuleListener;
 import org.apache.dubbo.rpc.cluster.router.mesh.route.MeshEnvListener;
 
+/**
+ * 又是个空实现
+ */
 public class NopKubernetesMeshEnvListener implements MeshEnvListener {
 
     @Override

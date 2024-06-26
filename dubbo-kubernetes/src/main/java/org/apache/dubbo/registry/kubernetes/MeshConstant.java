@@ -19,6 +19,12 @@ package org.apache.dubbo.registry.kubernetes;
 import io.fabric8.kubernetes.client.dsl.base.CustomResourceDefinitionContext;
 
 public class MeshConstant {
+
+    /**
+     * 自定义资源上下文？
+     * 该方法只是方便 vsappWatch那边创建watch
+     * @return
+     */
     public static CustomResourceDefinitionContext getVsDefinition() {
         // TODO cache
         return new CustomResourceDefinitionContext.Builder()
