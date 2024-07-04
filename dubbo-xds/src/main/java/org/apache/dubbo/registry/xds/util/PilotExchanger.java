@@ -43,6 +43,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+/**
+ * 交换机，包含xDs中的各种协议
+ *
+ * Pilot 通过 K8s ApiServer 接口获取 service 和 endpoint 等服务资源信息，将其转化为 xDS 消息下发给数据面的 Envoy 组件。
+ */
 public class PilotExchanger {
 
     protected final XdsChannel xdsChannel;

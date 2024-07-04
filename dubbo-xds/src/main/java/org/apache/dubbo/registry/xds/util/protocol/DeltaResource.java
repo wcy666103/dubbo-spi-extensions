@@ -21,6 +21,7 @@ package org.apache.dubbo.registry.xds.util.protocol;
  * <br/>
  * This interface is design to unify the way of fetching data in delta stream
  * in {@link org.apache.dubbo.registry.xds.util.PilotExchanger}
+ * xDS 中资源接口，可通过 ADS 增量流进行更新 该接口旨在统一在增量流中获取数据的方式
  */
 public interface DeltaResource<T> {
     /**

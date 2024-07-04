@@ -41,6 +41,10 @@ import java.util.stream.Collectors;
 
 import static org.apache.dubbo.common.constants.LoggerCodeConstants.REGISTRY_ERROR_RESPONSE_XDS;
 
+/**
+ * endPoint  每一个都是相当于一个 pod
+ * Cluster 相当于一个 service集合
+ */
 public class EdsProtocol extends AbstractProtocol<EndpointResult, DeltaEndpoint> {
 
     private static final ErrorTypeAwareLogger logger = LoggerFactory.getErrorTypeAwareLogger(EdsProtocol.class);
@@ -69,6 +73,7 @@ public class EdsProtocol extends AbstractProtocol<EndpointResult, DeltaEndpoint>
     private EndpointResult decodeResourceToEndpoint(ClusterLoadAssignment resource) {
         Set<Endpoint> endpoints = resource.getEndpointsList().stream()
                 .flatMap(e -> e.getLbEndpointsList().stream())
+//            LbEndpoint 就是  Envoy 可以将流量路由到的端点。
                 .map(e -> decodeLbEndpointToEndpoint(resource.getClusterName(), e))
                 .collect(Collectors.toSet());
         return new EndpointResult(endpoints);
@@ -86,6 +91,11 @@ public class EdsProtocol extends AbstractProtocol<EndpointResult, DeltaEndpoint>
         return endpoint;
     }
 
+    /**
+     * 返回的是 envoy 的config包下的
+     * @param any
+     * @return
+     */
     private static ClusterLoadAssignment unpackClusterLoadAssignment(Any any) {
         try {
             return any.unpack(ClusterLoadAssignment.class);

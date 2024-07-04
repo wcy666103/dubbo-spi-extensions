@@ -44,6 +44,9 @@ import java.nio.charset.StandardCharsets;
 
 import static org.apache.dubbo.common.constants.LoggerCodeConstants.REGISTRY_ERROR_CREATE_CHANNEL_XDS;
 
+/**
+ * xDS通道
+ */
 public class XdsChannel {
 
     private static final ErrorTypeAwareLogger logger = LoggerFactory.getErrorTypeAwareLogger(XdsChannel.class);

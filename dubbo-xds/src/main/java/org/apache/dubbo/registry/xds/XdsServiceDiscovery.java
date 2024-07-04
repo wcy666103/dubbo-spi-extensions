@@ -37,6 +37,9 @@ import java.util.Set;
 import static org.apache.dubbo.common.constants.LoggerCodeConstants.REGISTRY_ERROR_INITIALIZE_XDS;
 import static org.apache.dubbo.common.constants.LoggerCodeConstants.REGISTRY_ERROR_PARSING_XDS;
 
+/**
+ * 使用xDS作为注册中心
+ */
 public class XdsServiceDiscovery extends ReflectionBasedServiceDiscovery {
 
     private static final ErrorTypeAwareLogger logger = LoggerFactory.getErrorTypeAwareLogger(XdsServiceDiscovery.class);

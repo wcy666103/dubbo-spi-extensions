@@ -25,6 +25,8 @@ import org.apache.dubbo.registry.support.FailbackRegistry;
  * xDS only support `Service Discovery` mode register <br/>
  * Used to compat past version like 2.6.x, 2.7.x with interface level register <br/>
  * {@link XdsServiceDiscovery} is the real implementation of xDS
+ *
+ * 为了适配老的 service 发现
  */
 public class XdsRegistry extends FailbackRegistry {
     public XdsRegistry(URL url) {
